@@ -13,7 +13,32 @@ return new class extends Migration
     {
         Schema::create('artworks', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('artist_id')
+                ->constrained()
+                ->cascadeOnUpdate()
+                ->cascadeOnDelete();
+
+            $table->foreignId('category_id')
+                ->constrained()
+                ->cascadeOnUpdate()
+                ->restrictOnDelete();
+
+            $table->string('title');
+            $table->longText('desc')->nullable();
+            $table->year('ano_criacao')->nullable();
+            $table->string('tecnica')->nullable();
+            $table->string('dimensoes')->nullable();
+            $table->string('localizacao')->nullable();
+            $table->string('preview_image')->nullable();
+
+            $table->enum('status', [
+                'Em exposição',
+                'Em restauração',
+                'Armazenada'
+            ])->default('Em exposição');
+
             $table->timestamps();
+
         });
     }
 

@@ -11,18 +11,23 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('artwork_images', function (Blueprint $table) {
+        Schema::create('order_items', function (Blueprint $table) {
             $table->id();
 
-            $table->foreignId('artwork_id')
+            $table->foreignId('order_id')
                 ->constrained()
                 ->cascadeOnUpdate()
                 ->cascadeOnDelete();
 
-            $table->string('image');
-            $table->string('caption')->nullable();
-            $table->timestamps();
+            $table->foreignId('product_id')
+                ->constrained()
+                ->cascadeOnUpdate()
+                ->restrictOnDelete();
 
+            $table->unsignedInteger('quantity');
+            $table->decimal('unit_price', 10, 2);
+            $table->decimal('subtotal', 10, 2);
+            $table->timestamps();
         });
     }
 
@@ -31,6 +36,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('artwork_images');
+        Schema::dropIfExists('order_items');
     }
 };

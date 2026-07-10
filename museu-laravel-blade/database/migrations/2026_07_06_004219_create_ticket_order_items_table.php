@@ -13,6 +13,20 @@ return new class extends Migration
     {
         Schema::create('ticket_order_items', function (Blueprint $table) {
             $table->id();
+
+            $table->foreignId('ticket_order_id')
+                ->constrained()
+                ->cascadeOnUpdate()
+                ->cascadeOnDelete();
+
+            $table->foreignId('ticket_type_id')
+                ->constrained()
+                ->cascadeOnUpdate()
+                ->restrictOnDelete();
+
+            $table->unsignedInteger('quantity');
+            $table->decimal('unit_price', 10, 2);
+            $table->decimal('subtotal', 10, 2);
             $table->timestamps();
         });
     }

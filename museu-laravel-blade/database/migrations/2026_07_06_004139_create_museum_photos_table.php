@@ -13,6 +13,13 @@ return new class extends Migration
     {
         Schema::create('museum_photos', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('gallery_id')
+                ->constrained('museum_galleries')
+                ->cascadeOnUpdate()
+                ->cascadeOnDelete();
+
+            $table->string('photo');
+            $table->string('caption')->nullable();
             $table->timestamps();
         });
     }

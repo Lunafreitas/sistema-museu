@@ -13,6 +13,21 @@ return new class extends Migration
     {
         Schema::create('ticket_orders', function (Blueprint $table) {
             $table->id();
+            
+            $table->foreignId('user_id')
+                ->constrained()
+                ->cascadeOnUpdate()
+                ->cascadeOnDelete();
+
+            $table->date('visit_date');
+            $table->decimal('total', 10, 2);
+
+            $table->enum('status', [
+                'Pendente',
+                'Pago',
+                'Cancelado'
+            ])->default('Pendente');
+
             $table->timestamps();
         });
     }

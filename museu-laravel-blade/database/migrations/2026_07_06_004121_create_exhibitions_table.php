@@ -13,6 +13,19 @@ return new class extends Migration
     {
         Schema::create('exhibitions', function (Blueprint $table) {
             $table->id();
+
+            $table->string('title');
+            $table->text('desc');
+            $table->date('start_date');
+            $table->date('end_date');
+            $table->string('banner')->nullable();
+
+            $table->enum('status', [
+                'Agendada',
+                'Em andamento',
+                'Encerrada'
+            ])->default('Agendada');
+
             $table->timestamps();
         });
     }

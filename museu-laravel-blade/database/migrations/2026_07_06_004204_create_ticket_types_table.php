@@ -13,6 +13,11 @@ return new class extends Migration
     {
         Schema::create('ticket_types', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
+            $table->text('desc')->nullable();
+            $table->decimal('price', 10, 2);
+            $table->unsignedInteger('daily_limit')->nullable();
+            $table->boolean('active')->default(true);
             $table->timestamps();
         });
     }

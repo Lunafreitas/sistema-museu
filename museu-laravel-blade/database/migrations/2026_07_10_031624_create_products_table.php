@@ -13,7 +13,20 @@ return new class extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->id();
+
+            $table->foreignId('product_category_id')
+                ->constrained()
+                ->cascadeOnUpdate()
+                ->restrictOnDelete();
+
+            $table->string('name');
+            $table->text('desc')->nullable();
+            $table->decimal('preco', 10, 2);
+            $table->integer('estoque')->default(0);
+            // $table->string('image')->nullable();
+            $table->boolean('active')->default(true);
             $table->timestamps();
+
         });
     }
 
